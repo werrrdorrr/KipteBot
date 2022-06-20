@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 import os
 
 load_dotenv()
-bot = commands.Bot(guild_ids=[986294560365903933],reload=True)
+bot = commands.Bot(guild_ids=[986294560365903933],reload=True,sync_commands_debug=True)
 
 
 @bot.event
