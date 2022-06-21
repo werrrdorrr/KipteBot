@@ -1,6 +1,5 @@
 from disnake.ext import commands
 import disnake
-import requests
 from dotenv import load_dotenv
 import os
 import aiohttp
@@ -51,10 +50,9 @@ class SlashFunCommand(commands.Cog):
     @fun.sub_command(description='Send an anonymous message')
     async def msg(
         self,
-        ctx,
+        ctx: dACI,
         user: disnake.Member = commands.Param(description='Who do you want to write to?'),content: str = commands.Param(description='What do you want to write?')
         ):
-        
         embmsg = disnake.Embed(title='📨 You got a message from an anonymous user',color=0x021f4f)
         embmsg.add_field(name="Here's what it said: ",value=f'{content}')
         await user.send(embed=embmsg)
@@ -63,25 +61,37 @@ class SlashFunCommand(commands.Cog):
     async def msg_error(self, ctx, error):
         if isinstance(error, commands.CommandInvokeError):
             await ctx.response.send_message("⚠️ Cannot send messages to this user", ephemeral=True)
+    
+    @fun.sub_command(description='Show member avatar')
+    async def avatar(
+        self,
+        ctx: dACI,
+        member: disnake.Member = commands.Param(description="Whose avatar do you want to show?")
+        ):
+
+        if member.avatar == None:
+            emb = disnake.Embed(title='⚠️ The user has no avatar.',color=0xe36f02)
+            await ctx.response.send_message(embed=emb,ephemeral=True)
+        else:
+            emb = disnake.Embed(title=f'{member}',color=0xf7e645)
+            emb.set_image(url=member.avatar)
+            await ctx.response.send_message(embed=emb,ephemeral=True)
 
     @fun.sub_command(description='Checking the weather')
     async def weather(
         self,
-        ctx,
+        ctx: dACI,
         city: str = commands.Param(description='City name')
         ):
-        
         api_key = os.getenv('OW_TOKEN')
         base_url = "http://api.openweathermap.org/data/2.5/weather?lang=en&units=metric&appid="
         complete_url = base_url + api_key + "&q=" + city
-
         async with aiohttp.ClientSession() as session:
             async with session.get(complete_url) as r:
-
                 x = await r.json()
                 code = x["cod"]
                 badcode = [500,502,503,504]
-
+                
                 if code == 200:
                     y = x["main"]
                     w = x["wind"]
