@@ -19,7 +19,6 @@ class SlashAdminCommand(commands.Cog):
         ctx: dACI, 
         msg_count: int = commands.Param(description='How many messages do you want to delete?',min_value=1)
         ):
-        
         await ctx.channel.purge(limit=int(msg_count))
         await ctx.response.send_message('Done!', ephemeral=True)
 
