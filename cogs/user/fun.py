@@ -13,7 +13,12 @@ class UserFunCommand(commands.Cog):
         self.bot = bot
 
     @commands.user_command(name='Avatar')
-    async def avatar(self,ctx,member: disnake.Member):
+    async def avatar(
+        self,
+        ctx,
+        member: disnake.Member
+        ):
+        
         if member.avatar == None:
             emb = disnake.Embed(title='⚠️ The user has no avatar.',color=0xe36f02)
             await ctx.response.send_message(embed=emb,ephemeral=True)
