@@ -104,16 +104,20 @@ class SlashFunCommand(commands.Cog):
             emb_404 = disnake.Embed(title=f'⚠️ City of "{city}" not found!',description='Check for a typo in the name of your city and try again.',color=0xe36f02)
             await ctx.response.send_message(embed=emb_404,ephemeral=True)
         elif code == 401:
-            emb_401 = disnake.Embed(title='',description='',color=0xe36f02)
+            emb_401 = disnake.Embed(title='⚠️ API key error!',description='The error has been reported to the developer.',color=0xe36f02)
             await ctx.response.send_message(embed=emb_401,ephemeral=True)
+            print(f'⚠️⚠️⚠️ OpenWeather error: 401')
         elif code == 429:
-            emb_429 = disnake.Embed(title='',description='',color=0xe36f02)
+            emb_429 = disnake.Embed(title='⚠️ Too many requests!',description='Try again later.',color=0xe36f02)
             await ctx.response.send_message(embed=emb_429,ephemeral=True)
         elif code in badcode:
-            emb_429 = disnake.Embed(title='',description='',color=0xe36f02)
-            await ctx.response.send_message(embed=emb_429,ephemeral=True)
+            emb_5xx = disnake.Embed(title='⚠️ Unknown error!',description='The error has been reported to the developer.',color=0xe36f02)
+            await ctx.response.send_message(embed=emb_5xx,ephemeral=True)
+            print(f'⚠️⚠️⚠️ OpenWeather 5xx error: {code}')
         else:
-            print(f'⚠️⚠️⚠️ Unknown err code: {code}')
+            emb_unknown = disnake.Embed(title='⚠️ Unknown error!',description='The error has been reported to the developer.',color=0xe36f02)
+            await ctx.response.send_message(embed=emb_unknown,ephemeral=True)
+            print(f'⚠️⚠️⚠️ OpenWeather unknown error: {code}')
 
 def setup(bot: commands.Bot):
     bot.add_cog(SlashFunCommand(bot))
