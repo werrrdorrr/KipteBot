@@ -11,7 +11,7 @@ bot = commands.Bot(guild_ids=[986294560365903933],reload=True,sync_commands_debu
 async def on_ready():
     print("The bot is ready!")
 
-for ext in ['cogs.slash.fun']:  
+for ext in ['cogs.slash.fun','cogs.slash.admin']:  
     bot.load_extension(ext)
 
 
