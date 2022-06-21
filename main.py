@@ -12,7 +12,7 @@ print('Connecting to Discord servers...')
 async def on_ready():
     print("The bot is ready!")
 
-for ext in ['cogs.slash.fun','cogs.slash.admin']:  
+for ext in ['cogs.slash.fun','cogs.slash.admin','cogs.user.fun']:  
     bot.load_extension(ext)
 
 
