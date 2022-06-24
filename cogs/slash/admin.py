@@ -1,10 +1,6 @@
 from disnake.ext import commands
 import disnake
 
-
-
-
-
 dACI = 'disnake.ApplicationCommandInteraction'
 
 class SlashAdminCommand(commands.Cog):
