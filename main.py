@@ -5,7 +5,10 @@ import os
 
 load_dotenv()
 
-bot = commands.Bot(test_guilds=[986294560365903933],reload=True,sync_commands_debug=True)
+intents = disnake.Intents.default()
+intents.members = True
+
+bot = commands.Bot(test_guilds=[986294560365903933],reload=True,sync_commands_debug=True,intents=intents)
 
 for ext in ['cogs.slash.fun','cogs.slash.admin','cogs.user.fun']:  
     bot.load_extension(ext)
