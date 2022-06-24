@@ -3,6 +3,8 @@ import disnake
 from dotenv import load_dotenv
 import os
 import aiohttp
+from simpledemotivators import *
+
 
 load_dotenv()
 
@@ -23,7 +25,7 @@ class SlashFunCommand(commands.Cog):
         self, 
         ctx: dACI
         ):
-        await ctx.response.send_message(f"🏓 Pong! {round(self.bot.latency * 1000)}ms", ephemeral=True)
+        await ctx.response.send_message(f"🏓 Pong! {round(self.bot.latency * 1000)}ms",ephemeral=True)
     
     @fun.sub_command(description='About bot')
     async def about(
@@ -32,6 +34,29 @@ class SlashFunCommand(commands.Cog):
         ):
         await ctx.response.send_message("Hi, I'm KipteBot, written on the Disnake library (https://github.com/DisnakeDev/disnake). Bot repository: https://github.com/werrrdorrr/KipteBot")
 
+    @fun.sub_command(description='Make a demotivator')
+    async def demotivator(
+        self,
+        ctx:dACI,
+        img: disnake.Attachment = commands.Param(description='Image'),
+        top: str = commands.Param(description='Top text'),
+        bottom: str = commands.Param(description='Bottom text')
+        ):
+        defer = await ctx.response.defer(ephemeral=True)
+        file_ext = ['.png','.jpg','.jpeg','.webp']
+        img_ext = str(img)
+        if img_ext.endswith(tuple(file_ext)) == True:
+            dem = Demotivator(top,bottom)
+            dem.create(img,use_url=True,result_filename=f'dem\dem.png',delete_file=True)
+            file = disnake.File(fp='dem\dem.png')
+            emb = disnake.Embed(title=ctx.author,color=0x010552)
+            emb.set_footer(text='Made with: https://github.com/Infqq/simpledemotivators')
+            emb.set_image(file=file)
+            await ctx.edit_original_message(defer, embed=emb)
+        else:
+            emb = disnake.Embed(title="⚠️ The attachment is not a photo.",color=0xe36f02)
+            await ctx.edit_original_message(defer, embed=emb)
+
     @fun.sub_command(description='Shows photos of cats')
     async def cat(
         self,
@@ -39,19 +64,21 @@ class SlashFunCommand(commands.Cog):
         ):
         async with aiohttp.ClientSession() as session:
             async with session.get("https://some-random-api.ml/animal/cat") as r:
+                defer = await ctx.response.defer(ephemeral=True)
                 json_stats = await r.json()
                 caturl = json_stats["image"]
                 factcat = json_stats["fact"]
                 emb = disnake.Embed(title='Photos of cats 😺',color=0xf7e645)
                 emb.add_field(name='Fact: ',value=f'*{factcat}*',inline=False)
                 emb.set_image(url=caturl)
-                await ctx.response.send_message(embed=emb,ephemeral=True)
+                await ctx.edit_original_message(defer, embed=emb)
 
     @fun.sub_command(description='Send an anonymous message')
     async def msg(
         self,
         ctx: dACI,
-        user: disnake.Member = commands.Param(description='Who do you want to write to?'),content: str = commands.Param(description='What do you want to write?')
+        user: disnake.Member = commands.Param(description='Who do you want to write to?'),
+        content: str = commands.Param(description='What do you want to write?')
         ):
         embmsg = disnake.Embed(title='📨 You got a message from an anonymous user',color=0x021f4f)
         embmsg.add_field(name="Here's what it said: ",value=f'{content}')
@@ -69,13 +96,9 @@ class SlashFunCommand(commands.Cog):
         member: disnake.Member = commands.Param(description="Whose avatar do you want to show?")
         ):
 
-        if member.avatar == None:
-            emb = disnake.Embed(title='⚠️ The user has no avatar.',color=0xe36f02)
-            await ctx.response.send_message(embed=emb,ephemeral=True)
-        else:
-            emb = disnake.Embed(title=f'{member}',color=0xf7e645)
-            emb.set_image(url=member.avatar)
-            await ctx.response.send_message(embed=emb,ephemeral=True)
+        emb = disnake.Embed(title=f'{member}',color=0xf7e645)
+        emb.set_image(url=member.display_avatar)
+        await ctx.response.send_message(embed=emb,ephemeral=True)
 
     @fun.sub_command(description='Checking the weather')
     async def weather(
@@ -88,6 +111,7 @@ class SlashFunCommand(commands.Cog):
         complete_url = base_url + api_key + "&q=" + city
         async with aiohttp.ClientSession() as session:
             async with session.get(complete_url) as r:
+                defer = await ctx.response.defer(ephemeral=True)
                 x = await r.json()
                 code = x["cod"]
                 badcode = [500,502,503,504]
@@ -101,11 +125,12 @@ class SlashFunCommand(commands.Cog):
                     current_humidity = y["humidity"]
                     current_feelslike = y["feels_like"]
                     current_speed = w["speed"]
+                    country = s["country"]
                     z = x["weather"]
                     weather_description = z[0]["description"]
                     icon = z[0]["icon"]
                     icon_url = f'https://openweathermap.org/img/wn/{icon}@4x.png'
-                    embed = disnake.Embed(title=f"🌡️ Weather in {fullname}",color=0x0094FF)
+                    embed = disnake.Embed(title=f"🌡️ Weather in {fullname}\nCountry: {country}",color=0x0094FF)
                     embed.add_field(name="Temperature now:", value=f"**{current_temperature}°C**", inline=True)
                     embed.add_field(name="Feels like:", value=f"**{current_feelslike}°C**", inline=True)
                     embed.add_field(name="Description:", value=f"**{weather_description.title()}**", inline=False)
@@ -113,24 +138,24 @@ class SlashFunCommand(commands.Cog):
                     embed.add_field(name="Wind speed:", value=f"**{current_speed} m/s**", inline=False)
                     embed.set_thumbnail(url=icon_url)
                     embed.set_footer(text="Source: OpenWeather") 
-                    await ctx.response.send_message(embed=embed,ephemeral=True)
+                    await ctx.edit_original_message(defer, embed=embed)
                 elif code == "404":
                     emb_404 = disnake.Embed(title=f'⚠️ City of "{city}" not found!',description='Check for a typo in the name of your city and try again.',color=0xe36f02)
-                    await ctx.response.send_message(embed=emb_404,ephemeral=True)
+                    await ctx.edit_original_message(defer, embed=emb_404)
                 elif code == 401:
                     emb_401 = disnake.Embed(title='⚠️ API key error!',description='The error has been reported to the developer.',color=0xe36f02)
-                    await ctx.response.send_message(embed=emb_401,ephemeral=True)
+                    await ctx.edit_original_message(defer, embed=emb_401)
                     print(f'⚠️⚠️⚠️ OpenWeather error: 401')
                 elif code == 429:
                     emb_429 = disnake.Embed(title='⚠️ Too many requests!',description='Try again later.',color=0xe36f02)
-                    await ctx.response.send_message(embed=emb_429,ephemeral=True)
+                    await ctx.edit_original_message(defer, embed=emb_429)
                 elif code in badcode:
                     emb_5xx = disnake.Embed(title='⚠️ Unknown error!',description='The error has been reported to the developer.',color=0xe36f02)
-                    await ctx.response.send_message(embed=emb_5xx,ephemeral=True)
+                    await ctx.edit_original_message(defer, embed=emb_5xx)
                     print(f'⚠️⚠️⚠️ OpenWeather 5xx error: {code}')
                 else:
                     emb_unknown = disnake.Embed(title='⚠️ Unknown error!',description='The error has been reported to the developer.',color=0xe36f02)
-                    await ctx.response.send_message(embed=emb_unknown,ephemeral=True)
+                    await ctx.edit_original_message(defer, embed=emb_unknown)
                     print(f'⚠️⚠️⚠️ OpenWeather unknown error: {code}')
 
 def setup(bot: commands.Bot):
