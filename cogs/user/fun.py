@@ -18,7 +18,6 @@ class UserFunCommand(commands.Cog):
         ctx: dACI,
         member: disnake.Member
         ):
-        
         emb = disnake.Embed(title=f'{member}',color=0xf7e645)
         emb.set_image(url=member.display_avatar)
         await ctx.response.send_message(embed=emb,ephemeral=True)
