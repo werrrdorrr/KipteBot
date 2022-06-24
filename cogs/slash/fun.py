@@ -51,23 +51,23 @@ class SlashFunCommand(commands.Cog):
     async def demotivator(
         self,
         ctx:dACI,
-        img: disnake.Attachment = commands.Param(description='Image'),
+        image: disnake.Attachment = commands.Param(description='Image (only .png, .jpg, .jpeg, .webp, .gif file extension)'),
         top: str = commands.Param(description='Top text'),
         bottom: str = commands.Param(description='Bottom text')
         ):
         defer = await ctx.response.defer(ephemeral=True)
-        file_ext = ['.png','.jpg','.jpeg','.webp']
-        img_ext = str(img)
+        file_ext = ['.png','.jpg','.jpeg','.webp','.gif']
+        img_ext = str(image)
         if img_ext.endswith(tuple(file_ext)) == True:
             dem = Demotivator(top,bottom)
-            dem.create(img,use_url=True,result_filename=f'dem\dem.png',delete_file=True)
+            dem.create(image,use_url=True,result_filename=f'dem\dem.png',delete_file=True)
             file = disnake.File(fp='dem\dem.png')
             emb = disnake.Embed(title=ctx.author,color=0x010552)
             emb.set_footer(text='Made with: https://github.com/Infqq/simpledemotivators')
             emb.set_image(file=file)
             await ctx.edit_original_message(defer, embed=emb)
         else:
-            emb = disnake.Embed(title="⚠️ The attachment is not a photo.",color=0xe36f02)
+            emb = disnake.Embed(title="⚠️ The attachment is not a image.",color=0xe36f02)
             await ctx.edit_original_message(defer, embed=emb)
 
     @fun.sub_command(description='Shows photos of cats')
