@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 import os
 import aiohttp
 from simpledemotivators import *
+import random
 
 
 load_dotenv()
@@ -34,6 +35,18 @@ class SlashFunCommand(commands.Cog):
         ):
         await ctx.response.send_message("Hi, I'm KipteBot, written on the Disnake library (https://github.com/DisnakeDev/disnake). Bot repository: https://github.com/werrrdorrr/KipteBot")
 
+    @fun.sub_command(name='8ball',description='Magic 8 ball')
+    async def ball(
+        self,
+        ctx:dACI,
+        question: str = commands.Param(description='What do you want to ask')
+        ):
+        ball_answers=["It is certain.","It is decidedly so.","Without a doubt.","Yes definitely.","You may rely on it.","As I see it, yes.","Most likely.","Outlook good.","Yes.","Signs point to yes.","Reply hazy, try again.","Ask again later.","Better not tell you now.","Cannot predict now.","Concentrate and ask again.","Don't count on it.","My reply is no.","My sources say no.","Outlook not so good.","Very doubtful."]
+        emb = disnake.Embed(title='🔮 8ball',color=0x52038f)
+        emb.add_field(name='You asked me:',value=f'{question}')
+        emb.add_field(name="Here's my answer:",value=f'{random.choice(ball_answers)}')
+        await ctx.response.send_message(embed=emb,ephemeral=True)
+    
     @fun.sub_command(description='Make a demotivator')
     async def demotivator(
         self,
