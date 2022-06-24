@@ -2,7 +2,6 @@ from disnake.ext import commands
 import disnake
 from dotenv import load_dotenv
 
-
 load_dotenv()
 
 dACI = 'disnake.ApplicationCommandInteraction'
