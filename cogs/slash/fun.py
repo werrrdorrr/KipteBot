@@ -6,7 +6,6 @@ import aiohttp
 from simpledemotivators import *
 import random
 
-
 load_dotenv()
 
 dACI = 'disnake.ApplicationCommandInteraction'
