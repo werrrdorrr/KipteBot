@@ -108,7 +108,6 @@ class SlashFunCommand(commands.Cog):
         ctx: dACI,
         member: disnake.Member = commands.Param(description="Whose avatar do you want to show?")
         ):
-
         emb = disnake.Embed(title=f'{member}',color=0xf7e645)
         emb.set_image(url=member.display_avatar)
         await ctx.response.send_message(embed=emb,ephemeral=True)
