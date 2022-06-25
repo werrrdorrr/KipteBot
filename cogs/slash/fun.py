@@ -69,6 +69,21 @@ class SlashFunCommand(commands.Cog):
             emb = disnake.Embed(title="⚠️ The attachment is not a image.",color=0xe36f02)
             await ctx.edit_original_message(defer, embed=emb)
 
+    @fun.sub_command(description='Create a quote of great men')
+    async def quote(
+        self,
+        ctx:dACI,
+        text: str = commands.Param(description='Quote text')
+        ):
+        defer = await ctx.response.defer(ephemeral=True)
+        quote = Quote(f'{text}', f'{ctx.author.name}')
+        quote.create(f'{ctx.author.display_avatar}',use_url=True,result_filename='dem_quote\quote.png',headline_text='Quotes of great men')
+        file = disnake.File(fp='dem_quote\quote.png')
+        emb = disnake.Embed(title=ctx.author,color=0x010552)
+        emb.set_footer(text='Made with: https://github.com/Infqq/simpledemotivators')
+        emb.set_image(file=file)
+        await ctx.edit_original_message(defer, embed=emb)
+
     @fun.sub_command(description='Shows photos of cats')
     async def cat(
         self,
