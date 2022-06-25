@@ -59,8 +59,8 @@ class SlashFunCommand(commands.Cog):
         img_ext = str(image)
         if img_ext.endswith(tuple(file_ext)) == True:
             dem = Demotivator(top,bottom)
-            dem.create(image,use_url=True,result_filename=f'dem\dem.png',delete_file=True)
-            file = disnake.File(fp='dem\dem.png')
+            dem.create(image,use_url=True,result_filename=f'dem_quote\dem.png',delete_file=True)
+            file = disnake.File(fp='dem_quote\dem.png')
             emb = disnake.Embed(title=ctx.author,color=0x010552)
             emb.set_footer(text='Made with: https://github.com/Infqq/simpledemotivators')
             emb.set_image(file=file)
