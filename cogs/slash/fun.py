@@ -78,10 +78,10 @@ class SlashFunCommand(commands.Cog):
             emb = disnake.Embed(title=ctx.author,color=0x010552)
             emb.set_footer(text='Made with: https://github.com/Infqq/simpledemotivators')
             emb.set_image(file=file)
-            await ctx.edit_original_message(defer, embed=emb)
+            await ctx.edit_original_message(embed=emb)
         else:
             emb = disnake.Embed(title="⚠️ The attachment is not a image.",color=0xe36f02)
-            await ctx.edit_original_message(defer, embed=emb)
+            await ctx.edit_original_message(embed=emb)
 
     @fun.sub_command(description='Create a quote of great men')
     async def quote(
