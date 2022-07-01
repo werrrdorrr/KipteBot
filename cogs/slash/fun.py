@@ -24,7 +24,8 @@ class SlashFunCommand(commands.Cog):
         self, 
         ctx: dACI
         ):
-        await ctx.response.send_message(f"🏓 Pong! {round(self.bot.latency * 1000)}ms",ephemeral=True)
+        await ctx.response.defer(ephemeral=True)
+        await ctx.edit_original_message(f"🏓 Pong! {round(self.bot.latency * 1000)}ms")
     
     @fun.sub_command(description='About bot')
     async def about(
