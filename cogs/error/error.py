@@ -17,13 +17,13 @@ class ErrorCommand(commands.Cog):
                 emb = disnake.Embed(title='⚠️ Invalid form body',description='You may have entered too many characters',color=0xe36f02)
                 await ctx.edit_original_message(embed=emb)
             elif UnidentifiedImageError in str(error):
-                emb = disnake.Embed(title='⚠️ Unidentified image rrror',description='Please try another image',color=0xe36f02)
+                emb = disnake.Embed(title='⚠️ Unidentified image error',description='Please try another image',color=0xe36f02)
                 await ctx.edit_original_message(embed=emb)
             elif ContentTypeError in str(error):
                 emb = disnake.Embed(title='⚠️ Invalid content type',description='You may have entered too many characters',color=0xe36f02)
                 await ctx.edit_original_message(embed=emb)
             else:
-                emb = disnake.Embed(title='⚠️ Command invoke error!',description=f'Error:\n```{error}```',color=0xe36f02)
+                emb = disnake.Embed(title='⚠️ Command invoke error',description=f'Error:\n```{error}```',color=0xe36f02)
                 await ctx.edit_original_message(embed=emb)
 
 def setup(bot: commands.Bot):
