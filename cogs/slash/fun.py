@@ -119,14 +119,11 @@ class SlashFunCommand(commands.Cog):
         user: disnake.Member = commands.Param(description='Who do you want to write to?'),
         content: str = commands.Param(description='What do you want to write?')
         ):
+        await ctx.response.defer(ephemeral=True)
         embmsg = disnake.Embed(title='📨 You got a message from an anonymous user',color=0x021f4f)
         embmsg.add_field(name="Here's what it said: ",value=f'{content}')
         await user.send(embed=embmsg)
-        await ctx.response.send_message('Done!',ephemeral=True)
-    @msg.error
-    async def msg_error(self, ctx, error):
-        if isinstance(error, commands.CommandInvokeError):
-            await ctx.response.send_message("⚠️ Cannot send messages to this user", ephemeral=True)
+        await ctx.edit_original_message('Done!')
     
     @fun.sub_command(description='Show member avatar')
     async def avatar(
