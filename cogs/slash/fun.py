@@ -112,7 +112,7 @@ class SlashFunCommand(commands.Cog):
                 emb = disnake.Embed(title='Photos of cats 😺',color=0xf7e645)
                 emb.add_field(name='Fact: ',value=f'*{factcat}*',inline=False)
                 emb.set_image(url=caturl)
-                await ctx.edit_original_message(defer, embed=emb)
+                await ctx.edit_original_message(embed=emb)
 
     @fun.sub_command(description='Send an anonymous message')
     async def msg(
