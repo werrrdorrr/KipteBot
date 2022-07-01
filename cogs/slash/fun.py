@@ -176,24 +176,24 @@ class SlashFunCommand(commands.Cog):
                     embed.add_field(name="Wind speed:", value=f"**{current_speed} m/s**", inline=False)
                     embed.set_thumbnail(url=icon_url)
                     embed.set_footer(text="Source: OpenWeather") 
-                    await ctx.edit_original_message(defer, embed=embed)
+                    await ctx.edit_original_message(embed=embed)
                 elif code == "404":
                     emb_404 = disnake.Embed(title=f'⚠️ The city "{city}" was not found!',description='Check for a typo in the name of your city and try again.',color=0xe36f02)
-                    await ctx.edit_original_message(defer, embed=emb_404)
+                    await ctx.edit_original_message(embed=emb_404)
                 elif code == 401:
                     emb_401 = disnake.Embed(title='⚠️ API key error!',description='The error has been reported to the developer.',color=0xe36f02)
-                    await ctx.edit_original_message(defer, embed=emb_401)
+                    await ctx.edit_original_message(embed=emb_401)
                     print(f'⚠️⚠️⚠️ OpenWeather error: 401')
                 elif code == 429:
                     emb_429 = disnake.Embed(title='⚠️ Too many requests!',description='Try again later.',color=0xe36f02)
-                    await ctx.edit_original_message(defer, embed=emb_429)
+                    await ctx.edit_original_message(embed=emb_429)
                 elif code in badcode:
                     emb_5xx = disnake.Embed(title='⚠️ Unknown error!',description='The error has been reported to the developer.',color=0xe36f02)
-                    await ctx.edit_original_message(defer, embed=emb_5xx)
+                    await ctx.edit_original_message(embed=emb_5xx)
                     print(f'⚠️⚠️⚠️ OpenWeather 5xx error: {code}')
                 else:
                     emb_unknown = disnake.Embed(title='⚠️ Unknown error!',description='The error has been reported to the developer.',color=0xe36f02)
-                    await ctx.edit_original_message(defer, embed=emb_unknown)
+                    await ctx.edit_original_message(embed=emb_unknown)
                     print(f'⚠️⚠️⚠️ OpenWeather unknown error: {code}')
 
 def setup(bot: commands.Bot):
