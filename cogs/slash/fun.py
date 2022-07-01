@@ -63,14 +63,13 @@ class SlashFunCommand(commands.Cog):
     async def demotivator(
         self,
         ctx:dACI,
-        image: disnake.Attachment = commands.Param(description='Image (only .png, .jpg, .jpeg, .webp, .gif file extension)'),
+        image: disnake.Attachment = commands.Param(description='Image'),
         top: str = commands.Param(description='Top text'),
         bottom: str = commands.Param(description='Bottom text')
         ):
         defer = await ctx.response.defer(ephemeral=True)
-        file_ext = ['.png','.jpg','.jpeg','.webp','.gif']
-        img_ext = str(image)
-        if img_ext.endswith(tuple(file_ext)) == True:
+        img_ext = str(image.content_type)
+        if img_ext.startswith('image') == True:
             dem = Demotivator(top,bottom)
             dem.create(image,use_url=True,result_filename=f'dem_quote\dem.png',delete_file=True)
             file = disnake.File(fp='dem_quote\dem.png')
