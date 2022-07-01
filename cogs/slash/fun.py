@@ -141,7 +141,7 @@ class SlashFunCommand(commands.Cog):
         ctx: dACI,
         city: str = commands.Param(description='City name')
         ):
-        api_key = os.getenv('OW_TOKEN')
+        api_key = os.getenv('OW_KEY')
         base_url = "http://api.openweathermap.org/data/2.5/weather?lang=en&units=metric&appid="
         complete_url = base_url + api_key + "&q=" + city
         async with aiohttp.ClientSession() as session:
@@ -175,7 +175,7 @@ class SlashFunCommand(commands.Cog):
                     embed.set_footer(text="Source: OpenWeather") 
                     await ctx.edit_original_message(defer, embed=embed)
                 elif code == "404":
-                    emb_404 = disnake.Embed(title=f'⚠️ City of "{city}" not found!',description='Check for a typo in the name of your city and try again.',color=0xe36f02)
+                    emb_404 = disnake.Embed(title=f'⚠️ The city "{city}" was not found!',description='Check for a typo in the name of your city and try again.',color=0xe36f02)
                     await ctx.edit_original_message(defer, embed=emb_404)
                 elif code == 401:
                     emb_401 = disnake.Embed(title='⚠️ API key error!',description='The error has been reported to the developer.',color=0xe36f02)
