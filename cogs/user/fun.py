@@ -17,9 +17,10 @@ class UserFunCommand(commands.Cog):
         ctx: dACI,
         member: disnake.Member
         ):
+        await ctx.response.defer(ephemeral=True)
         emb = disnake.Embed(title=f'{member}',color=0xf7e645)
         emb.set_image(url=member.display_avatar)
-        await ctx.response.send_message(embed=emb,ephemeral=True)
+        await ctx.edit_original_message(embed=emb)
 
 def setup(bot: commands.Bot):
     bot.add_cog(UserFunCommand(bot))
