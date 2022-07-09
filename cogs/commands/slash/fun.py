@@ -135,6 +135,7 @@ class SlashFunCommand(commands.Cog):
                 file = file
             )
             await ctx.edit_original_message(embed = emb)
+            os.remove(f'dem_quote\dem_{ctx.id}.png')
         else:
             emb = disnake.Embed(
                 title = "⚠️ The attachment is not a image",
