@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-dACI = 'disnake.ApplicationCommandInteraction'
+dACI = disnake.ApplicationCommandInteraction
 
 class UserFunCommand(commands.Cog):
     

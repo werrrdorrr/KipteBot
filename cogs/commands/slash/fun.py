@@ -8,7 +8,7 @@ import random
 
 load_dotenv()
 
-dACI = 'disnake.ApplicationCommandInteraction'
+dACI = disnake.ApplicationCommandInteraction
 
 class SlashFunCommand(commands.Cog):
 
