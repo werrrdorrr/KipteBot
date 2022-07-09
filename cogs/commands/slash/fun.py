@@ -174,6 +174,7 @@ class SlashFunCommand(commands.Cog):
             file = file
         )
         await ctx.edit_original_message(embed = emb)
+        os.remove(f'dem_quote\quote_{ctx.id}.png')
 
     @fun.sub_command(description = 'Shows photos of cats')
     async def cat(
