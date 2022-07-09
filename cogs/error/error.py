@@ -1,6 +1,6 @@
 from disnake.ext import commands
 import disnake
-from cogs.error.error_codes import *
+from data.error.error import *
 
 class ErrorCommand(commands.Cog):
 
