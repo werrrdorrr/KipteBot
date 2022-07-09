@@ -54,8 +54,8 @@ class SlashFunCommand(commands.Cog):
     async def about(
         self,
         ctx: dACI
-        await ctx.response.defer(ephemeral=True)
     ):
+        await ctx.response.defer(ephemeral = True)
         view = disnake.ui.View()
         item = disnake.ui.Button(
             style = disnake.ButtonStyle.url, 
