@@ -18,20 +18,42 @@ class ErrorCommand(commands.Cog):
     ):
         if isinstance(error, commands.CommandInvokeError):
             if CannotSendMsgUser in str(error):
-            elif InvalidFormBody in str(error):
-                emb = disnake.Embed(title='⚠️ Invalid form body',description='You may have entered too many characters',color=0xe36f02)
-                await ctx.edit_original_message(embed=emb)
                 emb = disnake.Embed(
                     title = '⚠️ Cannot send messages to this user',
                     color = 0xe36f02
                 )
                 await ctx.edit_original_message(embed = emb)
+            elif InvalidFormBody in str(error): 
+                emb = disnake.Embed(
+                    title = '⚠️ Invalid form body',
+                    color = 0xe36f02
+                )
+                emb.add_field(
+                    name = 'Possible reasons:', 
+                    value = 'You may have entered too many characters\nCannot create an embed'
+                )
+                await ctx.edit_original_message(embed = emb)
             elif UnidentifiedImageError in str(error):
-                emb = disnake.Embed(title='⚠️ Unidentified image error',description='Please try another image',color=0xe36f02)
-                await ctx.edit_original_message(embed=emb)
+                emb = disnake.Embed(
+                    title = '⚠️ Unidentified image error',
+                    description = 'Please try another image',
+                    color = 0xe36f02
+                )
+                emb.add_field(
+                    name = 'Possible reasons:',
+                    value = 'The image is damaged'
+                )
+                await ctx.edit_original_message(embed = emb)
             elif ContentTypeError in str(error):
-                emb = disnake.Embed(title='⚠️ Invalid content type',description='You may have entered too many characters',color=0xe36f02)
-                await ctx.edit_original_message(embed=emb)
+                emb = disnake.Embed(
+                    title = '⚠️ Invalid content type',
+                    color = 0xe36f02
+                )
+                emb.add_field(
+                    name = 'Possible reasons:', 
+                    value = 'You may have entered too many characters\nCannot create an embed'
+                )
+                await ctx.edit_original_message(embed = emb)
             else:
                 emb = disnake.Embed(
                     title = '⚠️ Command invoke error',
