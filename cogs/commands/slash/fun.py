@@ -29,9 +29,26 @@ class SlashFunCommand(commands.Cog):
     async def ping(
         self, 
         ctx: dACI
-        await ctx.response.defer(ephemeral=True)
-        await ctx.edit_original_message(f"🏓 Pong! {round(self.bot.latency * 1000)}ms")
     ):
+        await ctx.response.defer(ephemeral = True)
+        async with aiohttp.ClientSession() as session:
+            async with session.get("https://discordstatus.com/api/v2/status.json") as r:
+                x = await r.json()
+                y = x["status"]
+                description = y["description"]
+                emb = disnake.Embed(
+                    title = "Bot status",
+                    color = 0x028ade
+                )
+                emb.add_field(
+                    name = "Bot latency: ",
+                    value = f"{round(self.bot.latency * 1000)}ms"
+                )
+                emb.add_field(
+                    name = "Discord status: ",
+                    value = description
+                )
+                await ctx.edit_original_message(embed = emb)
     
     @fun.sub_command(description = 'About bot')
     async def about(
