@@ -199,6 +199,9 @@ class SlashFunCommand(commands.Cog):
                 emb.set_image(
                     url = caturl
                 )
+                emb.set_footer(
+                    text = 'Made with: https://some-random-api.ml/'
+                )
                 await ctx.edit_original_message(embed = emb)
 
     @fun.sub_command(description = 'Send an anonymous message')
