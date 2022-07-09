@@ -256,6 +256,10 @@ class SlashFunCommand(commands.Cog):
         city: str = commands.Param(
             description = 'City name'
         ),
+        country: str = commands.Param(
+            description = 'The name a country (write the name with two letters only, for example: United States = US, etc.)',
+            default = ''
+        )
     ):
         await ctx.response.defer(ephemeral = True)
         api_key = os.getenv('OW_KEY')
@@ -317,8 +321,20 @@ class SlashFunCommand(commands.Cog):
                     ) 
                     await ctx.edit_original_message(embed = emb_200)
                 elif code == "404":
-                    emb_404 = disnake.Embed(title=f'⚠️ The city "{city}" was not found!',description='Check for a typo in the name of your city and try again.',color=0xe36f02)
-                    await ctx.edit_original_message(embed=emb_404)
+                    if country == '':
+                        emb_404 = disnake.Embed(
+                            title = f'⚠️ The city "{city}" was not found!',
+                            description = 'Please check the correct spelling of the city and try again',
+                            color = 0xe36f02
+                        )
+                        await ctx.edit_original_message(embed = emb_404)
+                    else:
+                        emb_404 = disnake.Embed(
+                            title = f'⚠️ The city "{city}" in the country "{country}" was not found!',
+                            description = 'Please check the correct spelling of the city and country and try again',
+                            color = 0xe36f02
+                        )
+                        await ctx.edit_original_message(embed = emb_404)
                 elif code == 401:
                     emb_401 = disnake.Embed(
                         title = '⚠️ API key error!',
