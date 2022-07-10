@@ -1,7 +1,3 @@
 *.pyc
-
-dem_quote/quote.png
-dem_quote/dem.png
 demotivator_picture.jpg
-
 .env
