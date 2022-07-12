@@ -213,6 +213,10 @@ class SlashFunCommand(commands.Cog):
         ),
         content: str = commands.Param(
             description = 'What do you want to write?'
+        ),
+        attachment: disnake.Attachment = commands.Param(
+            description = 'Attach an attachment to your message',
+            default = None
         )
     ):
         await ctx.response.defer(ephemeral = True)
@@ -224,6 +228,20 @@ class SlashFunCommand(commands.Cog):
             name = "Here's what it said: ",
             value = content
         )
+        if attachment is not None:
+            file_ext = str(attachment.content_type)
+            if file_ext.startswith('image'):
+                emb_msg.set_image(
+                    url = attachment
+                )
+            else:
+                emb_msg.add_field(
+                    name = 'Attachment to message:',
+                    value = f'[Attachment]({attachment})',
+                    inline = False
+                )
+        else:
+            pass
         await user.send(embed = emb_msg)
         emb_done = disnake.Embed(
             title = '✅ Done!',
