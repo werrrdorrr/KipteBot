@@ -287,103 +287,96 @@ class SlashFunCommand(commands.Cog):
             async with session.get(complete_url) as r:
                 x = await r.json()
                 code = x["cod"]
-                badcode = [500,502,503,504]
-                if code == 200:
-                    y = x["main"]
-                    w = x["wind"]
-                    s = x["sys"]
-                    z = x["weather"]
-                    fullname = x["name"]
-                    current_temperature = y["temp"]
-                    current_humidity = y["humidity"]
-                    current_feelslike = y["feels_like"]
-                    current_speed = w["speed"]
-                    country = s["country"]
-                    weather_description = z[0]["description"]
-                    icon = z[0]["icon"]
-                    icon_url = f'https://openweathermap.org/img/wn/{icon}@4x.png'
-                    emb_200 = disnake.Embed(
-                        title = f"🌡️ Weather in {fullname}\nCountry: {country}",
-                        color = 0x028ade
-                    )
-                    emb_200.add_field(
-                        name = "Temperature now:", 
-                        value = f"**{current_temperature}°C**", 
-                        inline = True
-                    )
-                    emb_200.add_field(
-                        name = "Feels like:", 
-                        value = f"**{current_feelslike}°C**", 
-                        inline = True
-                    )
-                    emb_200.add_field(
-                        name = "Description:", 
-                        value = f"**{weather_description.title()}**", 
-                        inline = False
-                    )
-                    emb_200.add_field(
-                        name = "Humidity:", 
-                        value = f"**{current_humidity}%**", 
-                        inline = False
-                    )
-                    emb_200.add_field(
-                        name = "Wind speed:", 
-                        value = f"**{current_speed} m/s**", 
-                        inline = False
-                    )
-                    emb_200.set_thumbnail(
-                        url = icon_url
-                    )
-                    emb_200.set_footer(
-                        text = "Source: OpenWeather"
-                    ) 
-                    await ctx.edit_original_message(embed = emb_200)
-                elif code == "404":
-                    if country == '':
-                        emb_404 = disnake.Embed(
-                            title = f'⚠️ The city "{city}" was not found!',
-                            description = 'Please check the correct spelling of the city and try again',
+                match code:
+                    case 200:
+                        y = x["main"]
+                        w = x["wind"]
+                        s = x["sys"]
+                        z = x["weather"]
+                        fullname = x["name"]
+                        current_temperature = y["temp"]
+                        current_humidity = y["humidity"]
+                        current_feelslike = y["feels_like"]
+                        current_speed = w["speed"]
+                        country = s["country"]
+                        weather_description = z[0]["description"]
+                        icon = z[0]["icon"]
+                        icon_url = f'https://openweathermap.org/img/wn/{icon}@4x.png'
+                        emb_200 = disnake.Embed(
+                            title = f"🌡️ Weather in {fullname}\nCountry: {country}",
+                            color = 0x028ade
+                        )
+                        emb_200.add_field(
+                            name = "Temperature now:", 
+                            value = f"**{current_temperature}°C**", 
+                            inline = True
+                        )
+                        emb_200.add_field(
+                            name = "Feels like:", 
+                            value = f"**{current_feelslike}°C**", 
+                            inline = True
+                        )
+                        emb_200.add_field(
+                            name = "Description:", 
+                            value = f"**{weather_description.title()}**", 
+                            inline = False
+                        )
+                        emb_200.add_field(
+                            name = "Humidity:", 
+                            value = f"**{current_humidity}%**", 
+                            inline = False
+                        )
+                        emb_200.add_field(
+                            name = "Wind speed:", 
+                            value = f"**{current_speed} m/s**", 
+                            inline = False
+                        )
+                        emb_200.set_thumbnail(
+                            url = icon_url
+                        )
+                        emb_200.set_footer(
+                            text = "Source: OpenWeather"
+                        ) 
+                        await ctx.edit_original_message(embed = emb_200)
+                    case "404":
+                        match country:
+                            case '':
+                                emb_404 = disnake.Embed(
+                                    title = f'⚠️ The city "{city}" was not found!',
+                                    description = 'Please check the correct spelling of the city and try again',
+                                    color = 0xe36f02
+                                )
+                                await ctx.edit_original_message(embed = emb_404)
+                            case _:
+                                emb_404 = disnake.Embed(
+                                    title = f'⚠️ The city "{city}" in the country "{country}" was not found!',
+                                    description = 'Please check the correct spelling of the city and country and try again',
+                                    color = 0xe36f02
+                                )
+                                await ctx.edit_original_message(embed = emb_404)
+                    case 401:
+                        emb_401 = disnake.Embed(
+                            title = '⚠️ API key error!',
+                            description = 'The error has been reported to the developer',
                             color = 0xe36f02
                         )
-                        await ctx.edit_original_message(embed = emb_404)
-                    else:
-                        emb_404 = disnake.Embed(
-                            title = f'⚠️ The city "{city}" in the country "{country}" was not found!',
-                            description = 'Please check the correct spelling of the city and country and try again',
+                        await ctx.edit_original_message(embed = emb_401)
+                        print(f'⚠️⚠️⚠️ OpenWeather error: 401')
+                    case 429:
+                        emb_429 = disnake.Embed(
+                            title = '⚠️ Too many requests!',
+                            description = 'Please try again later',
                             color = 0xe36f02
                         )
-                        await ctx.edit_original_message(embed = emb_404)
-                elif code == 401:
-                    emb_401 = disnake.Embed(
-                        title = '⚠️ API key error!',
-                        description = 'The error has been reported to the developer',
-                        color = 0xe36f02
-                    )
-                    await ctx.edit_original_message(embed = emb_401)
-                    print(f'⚠️⚠️⚠️ OpenWeather error: 401')
-                elif code == 429:
-                    emb_429 = disnake.Embed(
-                        title = '⚠️ Too many requests!',
-                        description = 'Please try again later',
-                        color = 0xe36f02
-                    )
-                    await ctx.edit_original_message(embed = emb_429)
-                elif code in badcode:
-                    emb_5xx = disnake.Embed(
-                        title = '⚠️ Unknown error!',
-                        description = 'The error has been reported to the developer',
-                        color = 0xe36f02
-                    )
-                    await ctx.edit_original_message(embed = emb_5xx)
-                    print(f'⚠️⚠️⚠️ OpenWeather 5xx error: {code}')
-                else:
-                    emb_unknown = disnake.Embed(
-                        title = '⚠️ Unknown error!',
-                        description = 'The error has been reported to the developer',
-                        color = 0xe36f02
-                    )
-                    await ctx.edit_original_message(embed = emb_unknown)
-                    print(f'⚠️⚠️⚠️ OpenWeather unknown error: {code}')
+                        await ctx.edit_original_message(embed = emb_429)
+                    case 500 | 502 | 503 | 504:
+                        emb_5xx = disnake.Embed(
+                            title = '⚠️ Unknown error!',
+                            description = 'The error has been reported to the developer',
+                            color = 0xe36f02
+                        )
+                        await ctx.edit_original_message(embed = emb_5xx)
+                        print(f'⚠️⚠️⚠️ OpenWeather 5xx error: {code}')
 
 def setup(
     bot: commands.Bot
