@@ -214,8 +214,8 @@ class SlashFunCommand(commands.Cog):
         content: str = commands.Param(
             description = 'What do you want to write?'
         ),
-        attachment: disnake.Attachment = commands.Param(
-            description = 'Attach an attachment to your message',
+        file: disnake.Attachment = commands.Param(
+            description = 'Attach a file to your message',
             default = None
         )
     ):
@@ -228,16 +228,16 @@ class SlashFunCommand(commands.Cog):
             name = "Here's what it said: ",
             value = content
         )
-        if attachment is not None:
-            file_ext = str(attachment.content_type)
+        if file is not None:
+            file_ext = str(file.content_type)
             if file_ext.startswith('image'):
                 emb_msg.set_image(
-                    url = attachment
+                    url = file
                 )
             else:
                 emb_msg.add_field(
-                    name = 'Attachment to message:',
-                    value = f'[Attachment]({attachment})',
+                    name = 'The file attached to this message:',
+                    value = f'[File]({file})',
                     inline = False
                 )
         else:
