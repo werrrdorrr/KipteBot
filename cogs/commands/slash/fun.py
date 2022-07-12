@@ -71,7 +71,7 @@ class SlashFunCommand(commands.Cog):
         view.add_item(item = item2)
         await ctx.edit_original_message("Hi, I'm a Discord bot written on the Disnake library.", view = view)
 
-    @fun.sub_command(name = '8ball',description = 'Magic 8 ball')
+    @fun.sub_command(name = '8ball', description = 'Magic 8 ball')
     async def ball(
         self,
         ctx: dACI,
