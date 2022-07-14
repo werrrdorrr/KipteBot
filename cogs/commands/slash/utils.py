@@ -95,6 +95,8 @@ class SlashUtilsCommand(commands.Cog):
         ),
         country: str = commands.Param(
             description = 'The name a country (write the name with two letters only, for example: United States = US, etc.)',
+            min_length = 2,
+            max_length = 2,
             default = ''
         )
     ):
