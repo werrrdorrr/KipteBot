@@ -40,6 +40,31 @@ class SlashBotCommand(commands.Cog):
         view.add_item(item = item2)
         await ctx.edit_original_message("Hi, I'm a Discord bot written on the Disnake library.", view = view)
 
+    @bot.sub_command(description = 'Bot latency check')
+    async def ping(
+        self, 
+        ctx: dACI
+    ):
+        await ctx.response.defer(ephemeral = True)
+        async with aiohttp.ClientSession() as session:
+            async with session.get("https://discordstatus.com/api/v2/status.json") as r:
+                x = await r.json()
+                y = x["status"]
+                description = y["description"]
+                emb = disnake.Embed(
+                    title = "Bot status",
+                    color = 0x028ade
+                )
+                emb.add_field(
+                    name = "Bot latency: ",
+                    value = f"{round(self.bot.latency * 1000)}ms"
+                )
+                emb.add_field(
+                    name = "Discord status: ",
+                    value = description
+                )
+                await ctx.edit_original_message(embed = emb)
+
 def setup(
     bot: commands.Bot
 ):
