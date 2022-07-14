@@ -65,6 +65,24 @@ class SlashUtilsCommand(commands.Cog):
         )
         await ctx.edit_original_message(embed = emb_done)
 
+    @utils.sub_command(description = 'Show member avatar')
+    async def avatar(
+        self,
+        ctx: dACI,
+        member: disnake.Member = commands.Param(
+            description = "Whose avatar do you want to show?"
+        )
+    ):
+        await ctx.response.defer(ephemeral = True)
+        emb = disnake.Embed(
+            title = f'{member}',
+            color = 0x028ade
+        )
+        emb.set_image(
+            url = member.display_avatar
+        )
+        await ctx.edit_original_message(embed = emb)
+
 def setup(
     bot: commands.Bot
 ):
