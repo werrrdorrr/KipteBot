@@ -18,8 +18,10 @@ bot = commands.InteractionBot(
 for ext in [
     'cogs.commands.slash.fun',
     'cogs.commands.slash.admin',
-    'cogs.commands.user.fun',
-    'cogs.error.error'
+    'cogs.commands.slash.utils',
+    'cogs.commands.slash.bot',
+    'cogs.commands.user.utils',
+    'cogs.error.commands.slash.error'
 ]:  
     bot.load_extension(ext)
 
