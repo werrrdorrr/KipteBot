@@ -2,7 +2,7 @@ from disnake.ext import commands
 import disnake
 from data.error.error import *
 
-class ErrorCommand(commands.Cog):
+class SlashError(commands.Cog):
 
     def __init__(
         self, 
@@ -65,4 +65,4 @@ class ErrorCommand(commands.Cog):
 def setup(
     bot: commands.Bot
 ):
-    bot.add_cog(ErrorCommand(bot))
+    bot.add_cog(SlashError(bot))
