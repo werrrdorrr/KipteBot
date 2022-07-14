@@ -6,7 +6,7 @@ load_dotenv()
 
 dACI = disnake.ApplicationCommandInteraction
 
-class UserFunCommand(commands.Cog):
+class UserUtilsCommand(commands.Cog):
     
     def __init__(
         self, 
@@ -33,4 +33,4 @@ class UserFunCommand(commands.Cog):
 def setup(
     bot: commands.Bot
 ):
-    bot.add_cog(UserFunCommand(bot))
+    bot.add_cog(UserUtilsCommand(bot))
