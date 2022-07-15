@@ -74,9 +74,13 @@ class SlashUtilsCommand(commands.Cog):
         ctx: dACI,
         member: disnake.Member = commands.Param(
             description = "Whose avatar do you want to show?"
+        ),
+        ephemeral: bool = commands.Param(
+            description = 'Make the message visible only to you? (The default value is True)',
+            default = True
         )
     ):
-        await ctx.response.defer(ephemeral = True)
+        await ctx.response.defer(ephemeral = ephemeral)
         emb = disnake.Embed(
             title = f'{member}',
             color = 0x028ade
@@ -98,9 +102,13 @@ class SlashUtilsCommand(commands.Cog):
             min_length = 2,
             max_length = 2,
             default = ''
+        ),
+        ephemeral: bool = commands.Param(
+            description = 'Make the message visible only to you? (The default value is True)',
+            default = True
         )
     ):
-        await ctx.response.defer(ephemeral = True)
+        await ctx.response.defer(ephemeral = ephemeral)
         api_key = os.getenv('OW_KEY')
         base_url = "http://api.openweathermap.org/data/2.5/weather?lang=en&units=metric&appid="
         complete_url = f'{base_url}{api_key}&q={city},{country}'

@@ -28,10 +28,14 @@ class SlashFunCommand(commands.Cog):
         ctx: dACI,
         question: str = commands.Param(
             description = 'What do you want to ask?'
+        ),
+        ephemeral: bool = commands.Param(
+            description = 'Make the message visible only to you? (The default value is True)',
+            default = True
         )
     ):
         from data.commands.slash.fun import ball_answers
-        await ctx.response.defer(ephemeral = True)
+        await ctx.response.defer(ephemeral = ephemeral)
         emb = disnake.Embed(
             title = '🔮 8ball',
             color = 0x52038f
@@ -59,9 +63,13 @@ class SlashFunCommand(commands.Cog):
         bottom: str = commands.Param(
             description = 'Bottom text',
             default = ''
+        ),
+        ephemeral: bool = commands.Param(
+            description = 'Make the message visible only to you? (The default value is True)',
+            default = True
         )
     ):
-        await ctx.response.defer(ephemeral = True)
+        await ctx.response.defer(ephemeral = ephemeral)
         img_ext = str(image.content_type)
         if img_ext.startswith('image'):
             dem = Demotivator(
@@ -100,9 +108,13 @@ class SlashFunCommand(commands.Cog):
         ctx: dACI,
         text: str = commands.Param(
             description = 'Quote text'
+        ),
+        ephemeral: bool = commands.Param(
+            description = 'Make the message visible only to you? (The default value is True)',
+            default = True
         )
     ):
-        await ctx.response.defer(ephemeral = True)
+        await ctx.response.defer(ephemeral = ephemeral)
         quote = Quote(
             text, 
             ctx.author.name
@@ -130,9 +142,13 @@ class SlashFunCommand(commands.Cog):
     @fun.sub_command(description = 'Shows photos of cats')
     async def cat(
         self,
-        ctx: dACI
+        ctx: dACI,
+        ephemeral: bool = commands.Param(
+            description = 'Make the message visible only to you? (The default value is True)',
+            default = True
+        )
     ):
-        await ctx.response.defer(ephemeral = True)
+        await ctx.response.defer(ephemeral = ephemeral)
         async with aiohttp.ClientSession() as session:
             async with session.get("https://some-random-api.ml/animal/cat") as r:
                 json_stats = await r.json()
