@@ -20,6 +20,7 @@ for ext in [
     'cogs.commands.slash.admin',
     'cogs.commands.slash.utils',
     'cogs.commands.slash.bot',
+    'cogs.commands.slash.party',
     'cogs.commands.user.utils',
     'cogs.error.commands.slash.error'
 ]:  
