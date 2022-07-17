@@ -63,7 +63,7 @@ class SlashUtilsCommand(commands.Cog):
             pass
         await user.send(embed = emb_msg)
         emb_done = disnake.Embed(
-            title = '✅ Done!',
+            title = '✅ Done, I sent the message',
             color = 0x1d9e00
         )
         await ctx.edit_original_message(embed = emb_done)
