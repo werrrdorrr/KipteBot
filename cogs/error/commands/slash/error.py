@@ -54,6 +54,23 @@ class SlashError(commands.Cog):
                     value = 'You may have entered too many characters\nCannot create an embed'
                 )
                 await ctx.edit_original_message(embed = emb)
+            elif MissingPermissions in str(error):
+                emb = disnake.Embed(
+                    title = '⚠️ Missing Permissions',
+                    description = 'I could not execute this command',
+                    color = 0xe36f02
+                )
+                await ctx.edit_original_message(embed = emb)
+            elif UnknownChannel in str(error):
+                emb = disnake.Embed(
+                    title = '⚠️ Unknown channel',
+                    color = 0xe36f02
+                )
+                emb.add_field(
+                    name = 'Possible reasons:', 
+                    value = 'The channel has been deleted'
+                )
+                await ctx.edit_original_message(embed = emb)
             else:
                 emb = disnake.Embed(
                     title = '⚠️ Command invoke error',
