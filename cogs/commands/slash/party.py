@@ -82,6 +82,22 @@ class SlashPartyCommand(commands.Cog):
         )
         await ctx.edit_original_message(f'[Click me]({invite}) (The link is valid for 5 minutes)')
 
+    @party.sub_command(description = 'Sketch Heads game')
+    async def sketch_heads(
+        self,
+        ctx,
+        voice: disnake.VoiceChannel = commands.Param(
+            description = 'Select the voice channel you want'
+        )
+    ):
+        await ctx.response.defer()
+        invite = await voice.create_invite(
+            target_type = disnake.InviteTarget.embedded_application, 
+            target_application = disnake.PartyType.sketch_heads,
+            max_age = 300
+        )
+        await ctx.edit_original_message(f'[Click me]({invite}) (The link is valid for 5 minutes)')
+
 def setup(
     bot: commands.Bot
 ):
