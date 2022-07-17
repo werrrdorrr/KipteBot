@@ -168,21 +168,20 @@ class SlashUtilsCommand(commands.Cog):
                         ) 
                         await ctx.edit_original_message(embed = emb_200)
                     case "404":
-                        match country:
-                            case '':
-                                emb_404 = disnake.Embed(
-                                    title = f'⚠️ The city "{city}" was not found!',
-                                    description = 'Please check the correct spelling of the city and try again',
-                                    color = 0xe36f02
-                                )
-                                await ctx.edit_original_message(embed = emb_404)
-                            case _:
-                                emb_404 = disnake.Embed(
-                                    title = f'⚠️ The city "{city}" in the country "{country}" was not found!',
-                                    description = 'Please check the correct spelling of the city and country and try again',
-                                    color = 0xe36f02
-                                )
-                                await ctx.edit_original_message(embed = emb_404)
+                        if country == '':
+                            emb_404 = disnake.Embed(
+                                title = f'⚠️ The city "{city}" was not found!',
+                                description = 'Please check the correct spelling of the city and try again',
+                                color = 0xe36f02
+                            )
+                            await ctx.edit_original_message(embed = emb_404)
+                        else:
+                            emb_404 = disnake.Embed(
+                                title = f'⚠️ The city "{city}" in the country "{country}" was not found!',
+                                description = 'Please check the correct spelling of the city and country and try again',
+                                color = 0xe36f02
+                            )
+                            await ctx.edit_original_message(embed = emb_404)
                     case 401:
                         emb_401 = disnake.Embed(
                             title = '⚠️ API key error!',
