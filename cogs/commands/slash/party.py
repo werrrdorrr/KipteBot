@@ -21,7 +21,7 @@ class SlashPartyCommand(commands.Cog):
     @party.sub_command(description = 'Watch together YouTube')
     async def youtube(
         self,
-        ctx,
+        ctx: dACI,
         voice: disnake.VoiceChannel = commands.Param(
             description = 'Select the voice channel you want'
         )
@@ -37,7 +37,7 @@ class SlashPartyCommand(commands.Cog):
     @party.sub_command(description = 'Poker Night game (Requires Boost Level 1)')
     async def poker(
         self,
-        ctx,
+        ctx: dACI,
         voice: disnake.VoiceChannel = commands.Param(
             description = 'Select the voice channel you want'
         )
@@ -53,7 +53,7 @@ class SlashPartyCommand(commands.Cog):
     @party.sub_command(description = 'Word Snacks game')
     async def word_snack(
         self,
-        ctx,
+        ctx: dACI,
         voice: disnake.VoiceChannel = commands.Param(
             description = 'Select the voice channel you want'
         )
@@ -69,7 +69,7 @@ class SlashPartyCommand(commands.Cog):
     @party.sub_command(description = 'SpellCast game (Requires Boost Level 1)')
     async def spellcast(
         self,
-        ctx,
+        ctx: dACI,
         voice: disnake.VoiceChannel = commands.Param(
             description = 'Select the voice channel you want'
         )
@@ -85,7 +85,7 @@ class SlashPartyCommand(commands.Cog):
     @party.sub_command(description = 'Sketch Heads game')
     async def sketch_heads(
         self,
-        ctx,
+        ctx: dACI,
         voice: disnake.VoiceChannel = commands.Param(
             description = 'Select the voice channel you want'
         )
@@ -101,7 +101,7 @@ class SlashPartyCommand(commands.Cog):
     @party.sub_command(description = 'Ocho game (Requires Boost Level 1)')
     async def ocho(
         self,
-        ctx,
+        ctx: dACI,
         voice: disnake.VoiceChannel = commands.Param(
             description = 'Select the voice channel you want'
         )
@@ -117,7 +117,7 @@ class SlashPartyCommand(commands.Cog):
     @party.sub_command(description = 'Chess In The Park game (Requires Boost Level 1)')
     async def chess(
         self,
-        ctx,
+        ctx: dACI,
         voice: disnake.VoiceChannel = commands.Param(
             description = 'Select the voice channel you want'
         )
@@ -133,7 +133,7 @@ class SlashPartyCommand(commands.Cog):
     @party.sub_command(description = 'Fishington.io game')
     async def fishing(
         self,
-        ctx,
+        ctx: dACI,
         voice: disnake.VoiceChannel = commands.Param(
             description = 'Select the voice channel you want'
         )
@@ -149,7 +149,7 @@ class SlashPartyCommand(commands.Cog):
     @party.sub_command(description = 'Betrayal.io game')
     async def betrayal(
         self,
-        ctx,
+        ctx: dACI,
         voice: disnake.VoiceChannel = commands.Param(
             description = 'Select the voice channel you want'
         )
@@ -165,7 +165,7 @@ class SlashPartyCommand(commands.Cog):
     @party.sub_command(description = 'Letter Tile game (Requires Boost Level 1)')
     async def letter_tile(
         self,
-        ctx,
+        ctx: dACI,
         voice: disnake.VoiceChannel = commands.Param(
             description = 'Select the voice channel you want'
         )
@@ -181,7 +181,7 @@ class SlashPartyCommand(commands.Cog):
     @party.sub_command(description = 'Checkers In The Park game (Requires Boost Level 1)')
     async def checkers(
         self,
-        ctx,
+        ctx: dACI,
         voice: disnake.VoiceChannel = commands.Param(
             description = 'Select the voice channel you want'
         )
