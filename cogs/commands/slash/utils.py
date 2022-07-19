@@ -109,6 +109,7 @@ class SlashUtilsCommand(commands.Cog):
         )
     ):
         await ctx.response.defer(ephemeral = ephemeral)
+        from funcs.flags import country_flags
         api_key = os.getenv('OW_KEY')
         base_url = "http://api.openweathermap.org/data/2.5/weather?lang=en&units=metric&appid="
         complete_url = f'{base_url}{api_key}&q={city},{country}'
@@ -132,7 +133,7 @@ class SlashUtilsCommand(commands.Cog):
                         icon = z[0]["icon"]
                         icon_url = f'https://openweathermap.org/img/wn/{icon}@4x.png'
                         emb_200 = disnake.Embed(
-                            title = f"🌡️ Weather in {fullname}\nCountry: {country}",
+                            title = f"🌡️ Weather in {fullname}\nCountry: {country_flags(country)} {country}",
                             color = 0x028ade
                         )
                         emb_200.add_field(
@@ -170,14 +171,14 @@ class SlashUtilsCommand(commands.Cog):
                     case "404":
                         if country == '':
                             emb_404 = disnake.Embed(
-                                title = f'⚠️ The city "{city}" was not found!',
+                                title = f'⚠️ The city `{city}` was not found!',
                                 description = 'Please check the correct spelling of the city and try again',
                                 color = 0xe36f02
                             )
                             await ctx.edit_original_message(embed = emb_404)
                         else:
                             emb_404 = disnake.Embed(
-                                title = f'⚠️ The city "{city}" in the country "{country}" was not found!',
+                                title = f'⚠️ The city `{city}` in the country {country_flags(country)} `{country}` was not found!',
                                 description = 'Please check the correct spelling of the city and country and try again',
                                 color = 0xe36f02
                             )
