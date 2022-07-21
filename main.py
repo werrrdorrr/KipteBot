@@ -9,7 +9,6 @@ intents = disnake.Intents.default()
 intents.members = True
 
 bot = commands.InteractionBot(
-    test_guilds = [986294560365903933],
     reload = True,
     sync_commands_debug = True,
     intents = intents,
