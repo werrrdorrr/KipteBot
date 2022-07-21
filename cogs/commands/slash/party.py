@@ -1,4 +1,5 @@
 from disnake.ext import commands
+from funcs.party_button import party_button
 import disnake
 
 dACI = disnake.ApplicationCommandInteraction
@@ -32,7 +33,9 @@ class SlashPartyCommand(commands.Cog):
             target_application = disnake.PartyType.watch_together,
             max_age = 300
         )
-        await ctx.edit_original_message(f'[Click me]({invite}) (The link is valid for 5 minutes)')
+        view = disnake.ui.View()
+        view.add_item(item = party_button(invite))
+        await ctx.edit_original_message('Click the button below (valid for 5 minutes)', view = view)
 
     @party.sub_command(description = 'Poker Night game (Requires Boost Level 1)')
     async def poker(
@@ -48,7 +51,9 @@ class SlashPartyCommand(commands.Cog):
             target_application = disnake.PartyType.poker,
             max_age = 300
         )
-        await ctx.edit_original_message(f'[Click me]({invite}) (The link is valid for 5 minutes)')
+        view = disnake.ui.View()
+        view.add_item(item = party_button(invite))
+        await ctx.edit_original_message('Click the button below (valid for 5 minutes)', view = view)
 
     @party.sub_command(description = 'Word Snacks game')
     async def word_snack(
@@ -64,7 +69,9 @@ class SlashPartyCommand(commands.Cog):
             target_application = disnake.PartyType.word_snack,
             max_age = 300
         )
-        await ctx.edit_original_message(f'[Click me]({invite}) (The link is valid for 5 minutes)')
+        view = disnake.ui.View()
+        view.add_item(item = party_button(invite))
+        await ctx.edit_original_message('Click the button below (valid for 5 minutes)', view = view)
     
     @party.sub_command(description = 'SpellCast game (Requires Boost Level 1)')
     async def spellcast(
@@ -80,7 +87,9 @@ class SlashPartyCommand(commands.Cog):
             target_application = disnake.PartyType.spellcast,
             max_age = 300
         )
-        await ctx.edit_original_message(f'[Click me]({invite}) (The link is valid for 5 minutes)')
+        view = disnake.ui.View()
+        view.add_item(item = party_button(invite))
+        await ctx.edit_original_message('Click the button below (valid for 5 minutes)', view = view)
 
     @party.sub_command(description = 'Sketch Heads game')
     async def sketch_heads(
@@ -96,7 +105,9 @@ class SlashPartyCommand(commands.Cog):
             target_application = disnake.PartyType.sketch_heads,
             max_age = 300
         )
-        await ctx.edit_original_message(f'[Click me]({invite}) (The link is valid for 5 minutes)')
+        view = disnake.ui.View()
+        view.add_item(item = party_button(invite))
+        await ctx.edit_original_message('Click the button below (valid for 5 minutes)', view = view)
 
     @party.sub_command(description = 'Ocho game (Requires Boost Level 1)')
     async def ocho(
@@ -112,7 +123,9 @@ class SlashPartyCommand(commands.Cog):
             target_application = disnake.PartyType.ocho,
             max_age = 300
         )
-        await ctx.edit_original_message(f'[Click me]({invite}) (The link is valid for 5 minutes)')
+        view = disnake.ui.View()
+        view.add_item(item = party_button(invite))
+        await ctx.edit_original_message('Click the button below (valid for 5 minutes)', view = view)
     
     @party.sub_command(description = 'Chess In The Park game (Requires Boost Level 1)')
     async def chess(
@@ -128,7 +141,9 @@ class SlashPartyCommand(commands.Cog):
             target_application = disnake.PartyType.chess,
             max_age = 300
         )
-        await ctx.edit_original_message(f'[Click me]({invite}) (The link is valid for 5 minutes)')
+        view = disnake.ui.View()
+        view.add_item(item = party_button(invite))
+        await ctx.edit_original_message('Click the button below (valid for 5 minutes)', view = view)
 
     @party.sub_command(description = 'Fishington.io game')
     async def fishing(
@@ -144,7 +159,9 @@ class SlashPartyCommand(commands.Cog):
             target_application = disnake.PartyType.fishing,
             max_age = 300
         )
-        await ctx.edit_original_message(f'[Click me]({invite}) (The link is valid for 5 minutes)')
+        view = disnake.ui.View()
+        view.add_item(item = party_button(invite))
+        await ctx.edit_original_message('Click the button below (valid for 5 minutes)', view = view)
 
     @party.sub_command(description = 'Betrayal.io game')
     async def betrayal(
@@ -160,7 +177,9 @@ class SlashPartyCommand(commands.Cog):
             target_application = disnake.PartyType.betrayal,
             max_age = 300
         )
-        await ctx.edit_original_message(f'[Click me]({invite}) (The link is valid for 5 minutes)')
+        view = disnake.ui.View()
+        view.add_item(item = party_button(invite))
+        await ctx.edit_original_message('Click the button below (valid for 5 minutes)', view = view)
 
     @party.sub_command(description = 'Letter Tile game (Requires Boost Level 1)')
     async def letter_tile(
@@ -176,7 +195,9 @@ class SlashPartyCommand(commands.Cog):
             target_application = disnake.PartyType.letter_tile,
             max_age = 300
         )
-        await ctx.edit_original_message(f'[Click me]({invite}) (The link is valid for 5 minutes)')
+        view = disnake.ui.View()
+        view.add_item(item = party_button(invite))
+        await ctx.edit_original_message('Click the button below (valid for 5 minutes)', view = view)
 
     @party.sub_command(description = 'Checkers In The Park game (Requires Boost Level 1)')
     async def checkers(
@@ -192,7 +213,9 @@ class SlashPartyCommand(commands.Cog):
             target_application = disnake.PartyType.checkers,
             max_age = 300
         )
-        await ctx.edit_original_message(f'[Click me]({invite}) (The link is valid for 5 minutes)')
+        view = disnake.ui.View()
+        view.add_item(item = party_button(invite))
+        await ctx.edit_original_message('Click the button below (valid for 5 minutes)', view = view)
 
 def setup(
     bot: commands.Bot
