@@ -1,4 +1,4 @@
 aiohttp
-disnake @ git+https://github.com/DisnakeDev/disnake@e647f97697d582557daeaa2f8e1d0d39006f75e3
+disnake @ git+https://github.com/DisnakeDev/disnake@eb356594feb9cbd38eefc82ba916870fe6e85b5b
 python-dotenv
 simpledemotivators
