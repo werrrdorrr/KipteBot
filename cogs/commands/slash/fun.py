@@ -79,10 +79,10 @@ class SlashFunCommand(commands.Cog):
             dem.create(
                 image,
                 use_url = True,
-                result_filename = f'dem_quote\dem_{ctx.id}.png',
+                result_filename = f'dem_{ctx.id}.png',
                 delete_file = True
             )
-            file = disnake.File(fp = f'dem_quote\dem_{ctx.id}.png')
+            file = disnake.File(fp = f'dem_{ctx.id}.png')
             emb = disnake.Embed(
                 title = ctx.author,
                 color = 0x028ade
@@ -94,7 +94,7 @@ class SlashFunCommand(commands.Cog):
                 file = file
             )
             await ctx.edit_original_message(embed = emb)
-            os.remove(f'dem_quote\dem_{ctx.id}.png')
+            os.remove(f'dem_{ctx.id}.png')
         else:
             emb = disnake.Embed(
                 title = "⚠️ The file is not an image",
@@ -122,10 +122,10 @@ class SlashFunCommand(commands.Cog):
         quote.create(
             ctx.author.display_avatar,
             use_url = True,
-            result_filename = f'dem_quote\quote_{ctx.id}.png',
+            result_filename = f'quote_{ctx.id}.png',
             headline_text = 'Quotes of great men'
         )
-        file = disnake.File(fp = f'dem_quote\quote_{ctx.id}.png')
+        file = disnake.File(fp = f'quote_{ctx.id}.png')
         emb = disnake.Embed(
             title = ctx.author,
             color = 0x028ade
@@ -137,7 +137,7 @@ class SlashFunCommand(commands.Cog):
             file = file
         )
         await ctx.edit_original_message(embed = emb)
-        os.remove(f'dem_quote\quote_{ctx.id}.png')
+        os.remove(f'quote_{ctx.id}.png')
 
     @fun.sub_command(description = 'Shows photos of cats')
     async def cat(
