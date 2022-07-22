@@ -19,14 +19,14 @@ class SlashUtilsCommand(commands.Cog):
     @commands.slash_command()
     async def utils(
         self,
-        ctx
+        inter
     ):
         pass
 
     @utils.sub_command(description = 'Send an anonymous message')
     async def msg(
         self,
-        ctx: dACI,
+        inter: dACI,
         user: disnake.Member = commands.Param(
             description = 'Who do you want to write to?'
         ),
@@ -38,7 +38,7 @@ class SlashUtilsCommand(commands.Cog):
             default = None
         )
     ):
-        await ctx.response.defer(ephemeral = True)
+        await inter.response.defer(ephemeral = True)
         emb_msg = disnake.Embed(
             title = '📨 You got a message from an anonymous user',
             color = 0x028ade
@@ -66,12 +66,12 @@ class SlashUtilsCommand(commands.Cog):
             title = '✅ Done, I sent the message',
             color = 0x1d9e00
         )
-        await ctx.edit_original_message(embed = emb_done)
+        await inter.edit_original_message(embed = emb_done)
 
     @utils.sub_command(description = 'Show member avatar')
     async def avatar(
         self,
-        ctx: dACI,
+        inter: dACI,
         member: disnake.Member = commands.Param(
             description = "Whose avatar do you want to show?"
         ),
@@ -80,7 +80,7 @@ class SlashUtilsCommand(commands.Cog):
             default = True
         )
     ):
-        await ctx.response.defer(ephemeral = ephemeral)
+        await inter.response.defer(ephemeral = ephemeral)
         emb = disnake.Embed(
             title = f'{member}',
             color = 0x028ade
@@ -88,12 +88,12 @@ class SlashUtilsCommand(commands.Cog):
         emb.set_image(
             url = member.display_avatar
         )
-        await ctx.edit_original_message(embed = emb)
+        await inter.edit_original_message(embed = emb)
 
     @utils.sub_command(description = 'Checking the weather')
     async def weather(
         self,
-        ctx: dACI,
+        inter: dACI,
         city: str = commands.Param(
             description = 'City name'
         ),
@@ -108,7 +108,7 @@ class SlashUtilsCommand(commands.Cog):
             default = True
         )
     ):
-        await ctx.response.defer(ephemeral = ephemeral)
+        await inter.response.defer(ephemeral = ephemeral)
         from funcs.flags import country_flags
         api_key = os.getenv('OW_KEY')
         base_url = "http://api.openweathermap.org/data/2.5/weather?lang=en&units=metric&appid="
@@ -167,7 +167,7 @@ class SlashUtilsCommand(commands.Cog):
                         emb_200.set_footer(
                             text = "Source: OpenWeather"
                         ) 
-                        await ctx.edit_original_message(embed = emb_200)
+                        await inter.edit_original_message(embed = emb_200)
                     case "404":
                         if country == '':
                             emb_404 = disnake.Embed(
@@ -175,21 +175,21 @@ class SlashUtilsCommand(commands.Cog):
                                 description = 'Please check the correct spelling of the city and try again',
                                 color = 0xe36f02
                             )
-                            await ctx.edit_original_message(embed = emb_404)
+                            await inter.edit_original_message(embed = emb_404)
                         else:
                             emb_404 = disnake.Embed(
                                 title = f'⚠️ The city `{city}` in the country {country_flags(country)} `{country}` was not found!',
                                 description = 'Please check the correct spelling of the city and country and try again',
                                 color = 0xe36f02
                             )
-                            await ctx.edit_original_message(embed = emb_404)
+                            await inter.edit_original_message(embed = emb_404)
                     case 401:
                         emb_401 = disnake.Embed(
                             title = '⚠️ API key error!',
                             description = 'The error has been reported to the developer',
                             color = 0xe36f02
                         )
-                        await ctx.edit_original_message(embed = emb_401)
+                        await inter.edit_original_message(embed = emb_401)
                         print(f'⚠️⚠️⚠️ OpenWeather error: 401')
                     case 429:
                         emb_429 = disnake.Embed(
@@ -197,14 +197,14 @@ class SlashUtilsCommand(commands.Cog):
                             description = 'Please try again later',
                             color = 0xe36f02
                         )
-                        await ctx.edit_original_message(embed = emb_429)
+                        await inter.edit_original_message(embed = emb_429)
                     case 500 | 502 | 503 | 504:
                         emb_5xx = disnake.Embed(
                             title = '⚠️ Unknown error!',
                             description = 'The error has been reported to the developer',
                             color = 0xe36f02
                         )
-                        await ctx.edit_original_message(embed = emb_5xx)
+                        await inter.edit_original_message(embed = emb_5xx)
                         print(f'⚠️⚠️⚠️ OpenWeather 5xx error: {code}')
 
 def setup(

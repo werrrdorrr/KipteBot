@@ -15,16 +15,16 @@ class SlashBotCommand(commands.Cog):
     @commands.slash_command()
     async def bot(
         self,
-        ctx
+        inter
     ):
         pass
 
     @bot.sub_command(description = 'About bot')
     async def about(
         self,
-        ctx: dACI
+        inter: dACI
     ):
-        await ctx.response.defer(ephemeral = True)
+        await inter.response.defer(ephemeral = True)
         view = disnake.ui.View()
         item = disnake.ui.Button(
             style = disnake.ButtonStyle.url, 
@@ -38,14 +38,14 @@ class SlashBotCommand(commands.Cog):
         )
         view.add_item(item = item)
         view.add_item(item = item2)
-        await ctx.edit_original_message("Hi, I'm a Discord bot written on the Disnake library.", view = view)
+        await inter.edit_original_message("Hi, I'm a Discord bot written on the Disnake library.", view = view)
 
     @bot.sub_command(description = 'Bot latency check')
     async def ping(
         self, 
-        ctx: dACI
+        inter: dACI
     ):
-        await ctx.response.defer(ephemeral = True)
+        await inter.response.defer(ephemeral = True)
         async with aiohttp.ClientSession() as session:
             async with session.get("https://discordstatus.com/api/v2/status.json") as r:
                 x = await r.json()
@@ -63,7 +63,7 @@ class SlashBotCommand(commands.Cog):
                     name = "Discord status: ",
                     value = description
                 )
-                await ctx.edit_original_message(embed = emb)
+                await inter.edit_original_message(embed = emb)
 
 def setup(
     bot: commands.Bot

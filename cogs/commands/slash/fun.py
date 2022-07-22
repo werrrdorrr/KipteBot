@@ -18,14 +18,14 @@ class SlashFunCommand(commands.Cog):
     @commands.slash_command()
     async def fun(
         self,
-        ctx
+        inter
     ):
         pass
 
     @fun.sub_command(name = '8ball', description = 'Magic 8 ball')
     async def ball(
         self,
-        ctx: dACI,
+        inter: dACI,
         question: str = commands.Param(
             description = 'What do you want to ask?'
         ),
@@ -35,7 +35,7 @@ class SlashFunCommand(commands.Cog):
         )
     ):
         from data.commands.slash.fun import ball_answers
-        await ctx.response.defer(ephemeral = ephemeral)
+        await inter.response.defer(ephemeral = ephemeral)
         emb = disnake.Embed(
             title = '🔮 8ball',
             color = 0x52038f
@@ -48,12 +48,12 @@ class SlashFunCommand(commands.Cog):
             name = "Here's my answer:",
             value = f'{random.choice(ball_answers)}'
         )
-        await ctx.edit_original_message(embed = emb)
+        await inter.edit_original_message(embed = emb)
     
     @fun.sub_command(description = 'Make a demotivator')
     async def demotivator(
         self,
-        ctx: dACI,
+        inter: dACI,
         image: disnake.Attachment = commands.Param(
             description = 'Image'
         ),
@@ -69,7 +69,7 @@ class SlashFunCommand(commands.Cog):
             default = True
         )
     ):
-        await ctx.response.defer(ephemeral = ephemeral)
+        await inter.response.defer(ephemeral = ephemeral)
         img_ext = str(image.content_type)
         if img_ext.startswith('image'):
             dem = Demotivator(
@@ -79,12 +79,12 @@ class SlashFunCommand(commands.Cog):
             dem.create(
                 image,
                 use_url = True,
-                result_filename = f'dem_{ctx.id}.png',
+                result_filename = f'dem_{inter.id}.png',
                 delete_file = True
             )
-            file = disnake.File(fp = f'dem_{ctx.id}.png')
+            file = disnake.File(fp = f'dem_{inter.id}.png')
             emb = disnake.Embed(
-                title = ctx.author,
+                title = inter.author,
                 color = 0x028ade
             )
             emb.set_footer(
@@ -93,19 +93,19 @@ class SlashFunCommand(commands.Cog):
             emb.set_image(
                 file = file
             )
-            await ctx.edit_original_message(embed = emb)
-            os.remove(f'dem_{ctx.id}.png')
+            await inter.edit_original_message(embed = emb)
+            os.remove(f'dem_{inter.id}.png')
         else:
             emb = disnake.Embed(
                 title = "⚠️ The file is not an image",
                 color = 0xe36f02
             )
-            await ctx.edit_original_message(embed = emb)
+            await inter.edit_original_message(embed = emb)
 
     @fun.sub_command(description = 'Create a quote of great men')
     async def quote(
         self,
-        ctx: dACI,
+        inter: dACI,
         text: str = commands.Param(
             description = 'Quote text'
         ),
@@ -114,20 +114,20 @@ class SlashFunCommand(commands.Cog):
             default = True
         )
     ):
-        await ctx.response.defer(ephemeral = ephemeral)
+        await inter.response.defer(ephemeral = ephemeral)
         quote = Quote(
             text, 
-            ctx.author.name
+            inter.author.name
         )
         quote.create(
-            ctx.author.display_avatar,
+            inter.author.display_avatar,
             use_url = True,
-            result_filename = f'quote_{ctx.id}.png',
+            result_filename = f'quote_{inter.id}.png',
             headline_text = 'Quotes of great men'
         )
-        file = disnake.File(fp = f'quote_{ctx.id}.png')
+        file = disnake.File(fp = f'quote_{inter.id}.png')
         emb = disnake.Embed(
-            title = ctx.author,
+            title = inter.author,
             color = 0x028ade
         )
         emb.set_footer(
@@ -136,19 +136,19 @@ class SlashFunCommand(commands.Cog):
         emb.set_image(
             file = file
         )
-        await ctx.edit_original_message(embed = emb)
-        os.remove(f'quote_{ctx.id}.png')
+        await inter.edit_original_message(embed = emb)
+        os.remove(f'quote_{inter.id}.png')
 
     @fun.sub_command(description = 'Shows photos of cats')
     async def cat(
         self,
-        ctx: dACI,
+        inter: dACI,
         ephemeral: bool = commands.Param(
             description = 'Make the message visible only to you? (The default value is True)',
             default = True
         )
     ):
-        await ctx.response.defer(ephemeral = ephemeral)
+        await inter.response.defer(ephemeral = ephemeral)
         async with aiohttp.ClientSession() as session:
             async with session.get("https://some-random-api.ml/animal/cat") as r:
                 json_stats = await r.json()
@@ -169,7 +169,7 @@ class SlashFunCommand(commands.Cog):
                 emb.set_footer(
                     text = 'Made with: https://some-random-api.ml/'
                 )
-                await ctx.edit_original_message(embed = emb)
+                await inter.edit_original_message(embed = emb)
 
 def setup(
     bot: commands.Bot

@@ -13,7 +13,7 @@ class SlashError(commands.Cog):
     @commands.Cog.listener()
     async def on_slash_command_error(
         self, 
-        ctx, 
+        inter, 
         error
     ):
         if isinstance(error, commands.CommandInvokeError):
@@ -22,7 +22,7 @@ class SlashError(commands.Cog):
                     title = '⚠️ Cannot send messages to this user',
                     color = 0xe36f02
                 )
-                await ctx.edit_original_message(embed = emb)
+                await inter.edit_original_message(embed = emb)
             elif InvalidFormBody in str(error): 
                 emb = disnake.Embed(
                     title = '⚠️ Invalid form body',
@@ -32,7 +32,7 @@ class SlashError(commands.Cog):
                     name = 'Possible reasons:', 
                     value = 'You may have entered too many characters\nCannot create an embed'
                 )
-                await ctx.edit_original_message(embed = emb)
+                await inter.edit_original_message(embed = emb)
             elif UnidentifiedImageError in str(error):
                 emb = disnake.Embed(
                     title = '⚠️ Unidentified image error',
@@ -43,7 +43,7 @@ class SlashError(commands.Cog):
                     name = 'Possible reasons:',
                     value = 'The image is damaged'
                 )
-                await ctx.edit_original_message(embed = emb)
+                await inter.edit_original_message(embed = emb)
             elif ContentTypeError in str(error):
                 emb = disnake.Embed(
                     title = '⚠️ Invalid content type',
@@ -53,14 +53,14 @@ class SlashError(commands.Cog):
                     name = 'Possible reasons:', 
                     value = 'You may have entered too many characters\nCannot create an embed'
                 )
-                await ctx.edit_original_message(embed = emb)
+                await inter.edit_original_message(embed = emb)
             elif MissingPermissions in str(error):
                 emb = disnake.Embed(
                     title = '⚠️ Missing Permissions',
                     description = 'I could not execute this command',
                     color = 0xe36f02
                 )
-                await ctx.edit_original_message(embed = emb)
+                await inter.edit_original_message(embed = emb)
             elif UnknownChannel in str(error):
                 emb = disnake.Embed(
                     title = '⚠️ Unknown channel',
@@ -70,14 +70,14 @@ class SlashError(commands.Cog):
                     name = 'Possible reasons:', 
                     value = 'The channel has been deleted'
                 )
-                await ctx.edit_original_message(embed = emb)
+                await inter.edit_original_message(embed = emb)
             else:
                 emb = disnake.Embed(
                     title = '⚠️ Command invoke error',
                     description = f'Error:\n```{error}```',
                     color = 0xe36f02
                 )
-                await ctx.edit_original_message(embed = emb)
+                await inter.edit_original_message(embed = emb)
 
 def setup(
     bot: commands.Bot

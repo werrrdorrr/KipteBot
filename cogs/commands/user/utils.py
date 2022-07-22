@@ -17,10 +17,10 @@ class UserUtilsCommand(commands.Cog):
     @commands.user_command(name = 'Avatar')
     async def avatar(
         self,
-        ctx: dACI,
+        inter: dACI,
         member: disnake.Member
     ):
-        await ctx.response.defer(ephemeral = True)
+        await inter.response.defer(ephemeral = True)
         emb = disnake.Embed(
             title = f'{member}',
             color = 0x028ade
@@ -28,7 +28,7 @@ class UserUtilsCommand(commands.Cog):
         emb.set_image(
             url = member.display_avatar
         )
-        await ctx.edit_original_message(embed = emb)
+        await inter.edit_original_message(embed = emb)
 
 def setup(
     bot: commands.Bot

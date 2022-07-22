@@ -15,19 +15,19 @@ class SlashAdminCommand(commands.Cog):
     @commands.default_member_permissions(manage_messages = True)
     async def purge(
         self, 
-        ctx: dACI, 
+        inter: dACI, 
         number: int = commands.Param(
             description = 'How many messages do you want to delete?',
             min_value = 1
         )
     ):
-        await ctx.response.defer(ephemeral = True)
-        await ctx.channel.purge(limit = number)
+        await inter.response.defer(ephemeral = True)
+        await inter.channel.purge(limit = number)
         emb = disnake.Embed(
             title = f'✅ Done, I deleted {number} messages',
             color = 0x1d9e00
         )
-        await ctx.edit_original_message(embed = emb)
+        await inter.edit_original_message(embed = emb)
 
 def setup(
     bot: commands.Bot
