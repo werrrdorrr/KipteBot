@@ -25,6 +25,7 @@ class SlashPartyCommand(commands.Cog):
         self,
         inter: dACI,
         activity: str = commands.Param(
+            description = 'Choose an activity from this list',
             choices = choices
         ),
         voice: disnake.VoiceChannel = commands.Param(
