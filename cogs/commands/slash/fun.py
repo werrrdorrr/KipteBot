@@ -79,6 +79,7 @@ class SlashFunCommand(commands.Cog):
             dem.create(
                 image,
                 use_url = True,
+                font_name = 'fonts/PTSerif-Regular.ttf',
                 result_filename = f'dem_{inter.id}.png',
                 delete_file = True
             )
@@ -122,6 +123,9 @@ class SlashFunCommand(commands.Cog):
         quote.create(
             inter.author.display_avatar,
             use_url = True,
+            quote_text_font = 'fonts/PTSerif-Italic.ttf',
+            author_name_font = 'fonts/PTSerif-Italic.ttf',
+            headline_text_font = 'fonts/PTSerif-Regular.ttf',
             result_filename = f'quote_{inter.id}.png',
             headline_text = 'Quotes of great men'
         )
