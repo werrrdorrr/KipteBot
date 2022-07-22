@@ -1,0 +1,4 @@
+aiohttp==3.7.4.post0
+disnake @ git+https://github.com/DisnakeDev/disnake@e647f97697d582557daeaa2f8e1d0d39006f75e3
+python-dotenv==0.20.0
+simpledemotivators==2.1.1
