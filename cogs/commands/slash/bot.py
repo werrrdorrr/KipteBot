@@ -53,7 +53,7 @@ class SlashBotCommand(commands.Cog):
                 description = y["description"]
                 emb = disnake.Embed(
                     title = "Bot status",
-                    color = 0x028ade
+                    color = 0x81A1C1
                 )
                 emb.add_field(
                     name = "Bot latency: ",

@@ -25,7 +25,7 @@ class SlashAdminCommand(commands.Cog):
         await inter.channel.purge(limit = number)
         emb = disnake.Embed(
             title = f'✅ Done, I deleted {number} messages',
-            color = 0x1d9e00
+            color = 0xA3BE8C
         )
         await inter.edit_original_message(embed = emb)
 

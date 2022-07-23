@@ -38,7 +38,7 @@ class SlashFunCommand(commands.Cog):
         await inter.response.defer(ephemeral = ephemeral)
         emb = disnake.Embed(
             title = '🔮 8ball',
-            color = 0x52038f
+            color = 0xB48EAD
         )
         emb.add_field(
             name = 'You asked me:',
@@ -86,7 +86,7 @@ class SlashFunCommand(commands.Cog):
             file = disnake.File(fp = f'dem_{inter.id}.png')
             emb = disnake.Embed(
                 title = inter.author,
-                color = 0x028ade
+                color = 0x81A1C1
             )
             emb.set_footer(
                 text = 'Made with: https://github.com/Infqq/simpledemotivators'
@@ -99,7 +99,7 @@ class SlashFunCommand(commands.Cog):
         else:
             emb = disnake.Embed(
                 title = "⚠️ The file is not an image",
-                color = 0xe36f02
+                color = 0xEBCB8B
             )
             await inter.edit_original_message(embed = emb)
 
@@ -132,7 +132,7 @@ class SlashFunCommand(commands.Cog):
         file = disnake.File(fp = f'quote_{inter.id}.png')
         emb = disnake.Embed(
             title = inter.author,
-            color = 0x028ade
+            color = 0x81A1C1
         )
         emb.set_footer(
             text = 'Made with: https://github.com/Infqq/simpledemotivators'
@@ -160,7 +160,7 @@ class SlashFunCommand(commands.Cog):
                 factcat = json_stats["fact"]
                 emb = disnake.Embed(
                     title = '😺 Photos of cats',
-                    color = 0x028ade
+                    color = 0x81A1C1
                 )
                 emb.add_field(
                     name = 'Fact: ',

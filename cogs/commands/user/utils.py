@@ -23,7 +23,7 @@ class UserUtilsCommand(commands.Cog):
         await inter.response.defer(ephemeral = True)
         emb = disnake.Embed(
             title = f'{member}',
-            color = 0x028ade
+            color = 0x81A1C1
         )
         emb.set_image(
             url = member.display_avatar

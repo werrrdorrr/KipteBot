@@ -41,7 +41,7 @@ class SlashUtilsCommand(commands.Cog):
         await inter.response.defer(ephemeral = True)
         emb_msg = disnake.Embed(
             title = '📨 You got a message from an anonymous user',
-            color = 0x028ade
+            color = 0x81A1C1
         )
         emb_msg.add_field(
             name = "Here's what it said: ",
@@ -64,7 +64,7 @@ class SlashUtilsCommand(commands.Cog):
         await user.send(embed = emb_msg)
         emb_done = disnake.Embed(
             title = '✅ Done, I sent the message',
-            color = 0x1d9e00
+            color = 0xA3BE8C
         )
         await inter.edit_original_message(embed = emb_done)
 
@@ -83,7 +83,7 @@ class SlashUtilsCommand(commands.Cog):
         await inter.response.defer(ephemeral = ephemeral)
         emb = disnake.Embed(
             title = f'{member}',
-            color = 0x028ade
+            color = 0x81A1C1
         )
         emb.set_image(
             url = member.display_avatar
@@ -134,7 +134,7 @@ class SlashUtilsCommand(commands.Cog):
                         icon_url = f'https://openweathermap.org/img/wn/{icon}@4x.png'
                         emb_200 = disnake.Embed(
                             title = f"🌡️ Weather in {fullname}\nCountry: {country_flags(country)} {country}",
-                            color = 0x028ade
+                            color = 0x81A1C1
                         )
                         emb_200.add_field(
                             name = "Temperature now:", 
@@ -173,21 +173,21 @@ class SlashUtilsCommand(commands.Cog):
                             emb_404 = disnake.Embed(
                                 title = f'⚠️ The city `{city}` was not found!',
                                 description = 'Please check the correct spelling of the city and try again',
-                                color = 0xe36f02
+                                color = 0xEBCB8B
                             )
                             await inter.edit_original_message(embed = emb_404)
                         else:
                             emb_404 = disnake.Embed(
                                 title = f'⚠️ The city `{city}` in the country {country_flags(country)} `{country}` was not found!',
                                 description = 'Please check the correct spelling of the city and country and try again',
-                                color = 0xe36f02
+                                color = 0xEBCB8B
                             )
                             await inter.edit_original_message(embed = emb_404)
                     case 401:
                         emb_401 = disnake.Embed(
                             title = '⚠️ API key error!',
                             description = 'The error has been reported to the developer',
-                            color = 0xe36f02
+                            color = 0xEBCB8B
                         )
                         await inter.edit_original_message(embed = emb_401)
                         print(f'⚠️⚠️⚠️ OpenWeather error: 401')
@@ -195,14 +195,14 @@ class SlashUtilsCommand(commands.Cog):
                         emb_429 = disnake.Embed(
                             title = '⚠️ Too many requests!',
                             description = 'Please try again later',
-                            color = 0xe36f02
+                            color = 0xEBCB8B
                         )
                         await inter.edit_original_message(embed = emb_429)
                     case 500 | 502 | 503 | 504:
                         emb_5xx = disnake.Embed(
                             title = '⚠️ Unknown error!',
                             description = 'The error has been reported to the developer',
-                            color = 0xe36f02
+                            color = 0xEBCB8B
                         )
                         await inter.edit_original_message(embed = emb_5xx)
                         print(f'⚠️⚠️⚠️ OpenWeather 5xx error: {code}')
